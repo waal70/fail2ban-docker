@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./data:/data"
+      - "/var/log/auth.log:/var/log/auth.log:ro"
+      - "../guac/data_ng/logs/:/log/npm/:ro"
+    restart: always
+    env_file:
+      - "./fail2ban.env"
